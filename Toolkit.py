@@ -6,6 +6,19 @@ from euler_transform import transform_point
 import numpy as np
 
 class GEOMETRIC_TRANSFORMATIONS:
+    
+    """A class for performing basic geometric transformations in 3D space, including rotations about the principal axes and point transformations between reference frames.
+    Methods
+    -------
+    rot_x(alpha):
+        Returns the rotation matrix for a rotation about the X-axis by angle alpha (in radians).
+    rot_y(alpha):
+        Returns the rotation matrix for a rotation about the Y-axis by angle alpha (in radians).
+    rot_z(alpha):
+        Returns the rotation matrix for a rotation about the Z-axis by angle alpha (in radians).
+    point_transformation(B, A, alpha_x, alpha_y, alpha_z):
+        Transforms point B to a new reference frame with origin at A and rotated by angles alpha_x, alpha_y, and alpha_z (in radians) about the X, Y, and Z axes, respectively."""
+
     def __init__(self):
         
         return
