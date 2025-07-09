@@ -2,8 +2,6 @@ import socket
 import urx
 import time
 import numpy as np
-from euler_transform import transform_point
-import numpy as np
 
 class GEOMETRIC_TRANSFORMATIONS:
     
