@@ -2,9 +2,9 @@ import socket
 import urx
 import time
 import numpy as np
+from Toolkit import point_transformation
 
 from euler_transform import transform_point
-from transformada_puntos import transformar_punto
 resultado = transform_point([1, 2, 3, 0.1, 0.2, 0.3], [1, 0, 0])
 print(resultado)
 
@@ -90,7 +90,7 @@ def go_to_target_point():
     alpha_y = np.radians(0)
     alpha_z = np.radians(-45)
 
-    x_transformado, y_transformado, z_transformado = transformar_punto(B, A, alpha_x, alpha_y, alpha_z)
+    x_transformado, y_transformado, z_transformado = point_transformation(B, A, alpha_x, alpha_y, alpha_z)
     punto_transformado = [x_transformado, y_transformado, z_transformado, 1.163, -2.946, 0.036]
     print(f"El punto transformado es: {punto_transformado}")
     # Enviar el punto transformado al robot
