@@ -6,6 +6,8 @@ manipulation = Toolkit.MANIPULATION()
 manipulation.go_to_home_pose(robot=robot)
 time.sleep(4)
 manipulation.go_to_pose(robot=robot ,pose=[21.15, -167.63, 0.84, -99.21, 89.72, 64.74])
-time.sleep(1)
+time.sleep(6)
 manipulation.turn_on_VG_urx(robot=robot)
+manipulation.turn_off_VG_urx(robot=robot)
+
 
