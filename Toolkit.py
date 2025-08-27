@@ -70,6 +70,7 @@ class ROBOT:
         self.robot_ip = robot_ip
         # self.robot = urx.Robot(robot_ip)
         self.home_point = [-0.00106, -0.1945, 0.75, 0.006, 2.224, -2.224]
+        self.methods = urx.Robot(robot_ip)
         return
 
 class MANIPULATION:
