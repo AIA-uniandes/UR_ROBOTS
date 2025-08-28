@@ -73,6 +73,12 @@ class ROBOT:
         self.methods = urx.Robot(robot_ip)
         return
 
+    def get_current_pose(self):
+        robot = urx.Robot(self.robot_ip)
+        current_pose = robot.getl()
+        robot.close()
+        return current_pose
+
 class MANIPULATION:
     def go_to_home_pose(self, robot):
         robot_ip = robot.robot_ip
