@@ -1,7 +1,11 @@
-import socket
 import urx
 import time
+import socket
 import numpy as np
+import math3d as m3d
+from typing import Dict, Tuple, List, Optional
+
+
 
 class GEOMETRIC_TRANSFORMATIONS:
     
@@ -73,11 +77,30 @@ class ROBOT:
         self.methods = urx.Robot(robot_ip)
         return
 
-
     def get_current_pose(self):
-        rob = urx.Robot(self.robot_ip)            
-        print(rob.getl())
-        return 
+        with urx.Robot(self.robot_ip) as rob:
+            
+            # Pose TCP como lista [x, y, z, rx, ry, rz]
+            tcp_list = rob.getl()
+
+            # Pose como objeto Transform (math3d)
+            T = rob.get_pose()
+
+            # Extraer datos
+            x, y, z = T.pos
+            qx, qy, qz, qw = T.orient.quaternion
+            roll, pitch, yaw = T.orient.to_euler('xyz')
+
+            pose_data = {
+                "tcp_list": tcp_list,                        # [x, y, z, rx, ry, rz]
+                "position_m": (x, y, z),                     # solo coordenadas
+                "axis_angle_rad": tuple(tcp_list[3:]),       # (rx, ry, rz)
+                "quaternion_xyzw": (qx, qy, qz, qw),         # orientación como cuaternión
+                "euler_xyz_rad": (roll, pitch, yaw),         # orientación como Euler
+                "transform": T                               # objeto completo math3d.Transform
+            }
+
+        return pose_data
 
 class MANIPULATION:
     def go_to_home_pose(self, robot):
