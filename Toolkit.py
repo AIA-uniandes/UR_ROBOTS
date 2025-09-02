@@ -73,20 +73,11 @@ class ROBOT:
         self.methods = urx.Robot(robot_ip)
         return
 
-    def close(self):
-        try:
-            self.methods.close()
-        except Exception:
-            pass
 
     def get_current_pose(self):
-        t = self.methods.get_pose()            
-        pv = t.pose_vector                     
-        try:
-            return list(pv)
-        except TypeError:
-            import numpy as np
-            return np.array(pv, dtype=float).tolist()
+        rob = urx.Robot(self.robot_ip)            
+        print(rob.getl())
+        return 
 
 class MANIPULATION:
     def go_to_home_pose(self, robot):
