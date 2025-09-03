@@ -77,30 +77,44 @@ class ROBOT:
         self.methods = urx.Robot(robot_ip)
         return
 
-    def get_current_pose(self):
-        with urx.Robot(self.robot_ip) as rob:
-            
-            # Pose TCP como lista [x, y, z, rx, ry, rz]
-            tcp_list = rob.getl()
+def get_current_pose(self):
+        """
+        Retorna un diccionario con:
+          - tcp_list: [x,y,z,rx,ry,rz] en m y rad (base->TCP)
+          - position_m: (x,y,z)
+          - axis_angle_rad: (rx,ry,rz)
+          - quaternion_xyzw: (qx,qy,qz,qw)
+          - euler_xyz_rad: (roll,pitch,yaw) en convención XYZ
+          - joints_rad: [q1..q6]
+        """
+        # Si prefieres conexión corta, usa: with urx.Robot(self.robot_ip) as rob:
+        rob = self.rob
 
-            # Pose como objeto Transform (math3d)
-            T = rob.get_pose()
+        # Pose completa como Transform
+        T = rob.get_pose()  # math3d.Transform
 
-            # Extraer datos
-            x, y, z = T.pos
-            qx, qy, qz, qw = T.orient.quaternion
-            roll, pitch, yaw = T.orient.to_euler('xyz')
+        # Posición
+        x, y, z = map(float, T.pos)
 
-            pose_data = {
-                "tcp_list": tcp_list,                        # [x, y, z, rx, ry, rz]
-                "position_m": (x, y, z),                     # solo coordenadas
-                "axis_angle_rad": tuple(tcp_list[3:]),       # (rx, ry, rz)
-                "quaternion_xyzw": (qx, qy, qz, qw),         # orientación como cuaternión
-                "euler_xyz_rad": (roll, pitch, yaw),         # orientación como Euler
-                "transform": T                               # objeto completo math3d.Transform
-            }
+        # Orientación en distintos formatos
+        rx, ry, rz = self._axis_angle_vec_from_orient(T.orient)
+        qx, qy, qz, qw = map(float, T.orient.quaternion)
+        roll, pitch, yaw = map(float, T.orient.to_euler('xyz'))
 
-        return pose_data
+        # Articulares
+        joints = list(map(float, rob.getj()))
+
+        # Construimos también la 'tcp_list' estilo getl()
+        tcp_list = [x, y, z, rx, ry, rz]
+
+        return {
+            "tcp_list": tcp_list,
+            "position_m": (x, y, z),
+            "axis_angle_rad": (rx, ry, rz),
+            "quaternion_xyzw": (qx, qy, qz, qw),
+            "euler_xyz_rad": (roll, pitch, yaw),
+            "joints_rad": joints,
+        }
 
 class MANIPULATION:
     def go_to_home_pose(self, robot):
