@@ -226,7 +226,7 @@ class MANIPULATION:
         time.sleep(5)
         target=[punto_pick_A[0]-lista_rot[0]/2, punto_pick_A[1]+lista_rot[1]/2, punto_pick_A[2]+lista_rot[2], punto_pick_A[3], punto_pick_A[4], punto_pick_A[5]]
         manipulation.move_linear(robot=robot, goal_point=target)
-        time.sleep(5)
+        time.sleep(8)
         manipulation.turn_on_VG_urx(robot=robot)
         time.sleep(3)
         manipulation.go_to_pose(robot=robot, pose=manipulationpose)
