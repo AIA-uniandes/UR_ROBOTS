@@ -228,8 +228,9 @@ class MANIPULATION:
         self.move_linear(robot=robot, goal_point=target)
         time.sleep(8)
         self.turn_on_VG_urx(robot=robot)
+        target2=[punto_pick_A[0]-lista_rot[0]/2, punto_pick_A[1]+lista_rot[1]/2, punto_pick_A[2]+lista_rot[2]+0.12, punto_pick_A[3], punto_pick_A[4], punto_pick_A[5]]
         time.sleep(3)
-        self.go_to_pose(robot=robot, pose=manipulationpose)
+        self.move_linear(robot=robot, goal_point=target2)
         return
     
     def turn_on_VG_urx(self, robot):
