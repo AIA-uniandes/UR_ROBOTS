@@ -212,7 +212,7 @@ class MANIPULATION:
         print("Nuestra trayectoria ha sido ejecutada por el robot")
         return
 
-    def pick_box(self, robot, manipulation, manipulationpose, punto_pick_A, box_dims, rotation):
+    def pick_box(self, robot, manipulationpose, punto_pick_A, box_dims, rotation):
         lista_rot=[]
         x=box_dims[0]
         y=box_dims[1]
@@ -222,14 +222,14 @@ class MANIPULATION:
         lista_rot.append(y_rot)
         lista_rot.append(box_dims[2])
 
-        manipulation.go_to_pose(robot=robot, pose=manipulationpose)
+        self.go_to_pose(robot=robot, pose=manipulationpose)
         time.sleep(5)
         target=[punto_pick_A[0]-lista_rot[0]/2, punto_pick_A[1]+lista_rot[1]/2, punto_pick_A[2]+lista_rot[2], punto_pick_A[3], punto_pick_A[4], punto_pick_A[5]]
-        manipulation.move_linear(robot=robot, goal_point=target)
+        self.move_linear(robot=robot, goal_point=target)
         time.sleep(8)
-        manipulation.turn_on_VG_urx(robot=robot)
+        self.turn_on_VG_urx(robot=robot)
         time.sleep(3)
-        manipulation.go_to_pose(robot=robot, pose=manipulationpose)
+        self.go_to_pose(robot=robot, pose=manipulationpose)
         return
     
     def turn_on_VG_urx(self, robot):
