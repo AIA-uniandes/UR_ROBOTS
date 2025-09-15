@@ -2,6 +2,7 @@ import urx
 import time
 import socket
 import numpy as np
+from numpy import sin, cos, pi
 import math3d as m3d
 from typing import Dict, Tuple, List, Optional
 
@@ -211,6 +212,26 @@ class MANIPULATION:
         print("Nuestra trayectoria ha sido ejecutada por el robot")
         return
 
+    def pick_box(self, robot, manipulation, manipulationpose, punto_pick_A, box_dims, rotation):
+        lista_rot=[]
+        x=box_dims[0]
+        y=box_dims[1]
+        x_rot = cos(rotation) * x + sin(rotation) * y
+        y_rot = -sin(rotation) * x + np.cos(rotation) * y
+        lista_rot.append(x_rot)
+        lista_rot.append(y_rot)
+        lista_rot.append(box_dims[2])
+
+        manipulation.go_to_pose(robot=robot, pose=manipulationpose)
+        time.sleep(5)
+        target=[punto_pick_A[0]-lista_rot[0]/2, punto_pick_A[1]+lista_rot[1]/2, punto_pick_A[2]+lista_rot[2], punto_pick_A[3], punto_pick_A[4], punto_pick_A[5]]
+        manipulation.move_linear(robot=robot, goal_point=target)
+        time.sleep(5)
+        manipulation.turn_on_VG_urx(robot=robot)
+        time.sleep(3)
+        manipulation.go_to_pose(robot=robot, pose=manipulationpose)
+        return
+    
     def turn_on_VG_urx(self, robot):
         robot_ip = robot.robot_ip 
         robot = urx.Robot(robot_ip)
