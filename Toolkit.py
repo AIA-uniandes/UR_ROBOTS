@@ -232,6 +232,23 @@ class MANIPULATION:
         time.sleep(3)
         self.move_linear(robot=robot, goal_point=target2)
         return
+    def rotate_point(lista, theta):
+        """
+        Rota un punto (x, y) un ángulo theta alrededor del origen.
+        :param x: coordenada x en el sistema original
+        :param y: coordenada y en el sistema original
+        :param theta_deg: ángulo en grados (positivo = antihorario)
+        :return: (x_rot, y_rot) coordenadas en el sistema rotado
+        """
+        lista_rot=[]
+        x=lista[0]
+        y=lista[1]
+        x_rot = cos(theta) * x + sin(theta) * y
+        y_rot = -sin(theta) * x + cos(theta) * y
+        lista_rot.append(x_rot)
+        lista_rot.append(y_rot)
+        lista_rot.append(lista[2])
+        return lista_rot
     
     def turn_on_VG_urx(self, robot):
         robot_ip = robot.robot_ip 
