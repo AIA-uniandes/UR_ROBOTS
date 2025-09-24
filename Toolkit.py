@@ -77,7 +77,7 @@ class ROBOT:
         self.methods = urx.Robot(robot_ip)
         return
 
-def get_current_pose(self):
+    def get_current_pose(self):
         """
         Retorna un diccionario con:
           - tcp_list: [x,y,z,rx,ry,rz] en m y rad (base->TCP)
