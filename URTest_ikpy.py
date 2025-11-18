@@ -13,7 +13,7 @@ print(f"Esta es la respuesta Answer en grados: {answer_degrees}")
 ax = matplotlib.pyplot.figure().add_subplot(111, projection='3d')
 
 ur3_robot.plot(answer, ax)
-# matplotlib.pyplot.show()
+matplotlib.pyplot.show()
 
 base = answer_degrees[2]
 shoulder = answer_degrees[3]
